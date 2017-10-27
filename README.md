@@ -11,7 +11,7 @@ Tinder? For TANDA? Localised entirely within the 2017 TANDA hackathon?
 * Setup Tinder access
 * When a late clock in occurs, send all matches a message about it
 
-#Features 
+# Features 
 * When a user clocks in, their Tinder theme song plays 
 * If they clock in late, an alert will be sent to their Tinder matches 
 * When a user is created, prompt them to sign up to service 
