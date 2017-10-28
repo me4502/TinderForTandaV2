@@ -29,6 +29,10 @@ def save():
 def hook():
     return routes.hook()
 
+@app.route('/user_data', methods=["POST"])
+def user_data():
+    return routes.user_data()
+
 
 @app.route('/fb_auth', methods=['POST'])
 def fb_auth():
