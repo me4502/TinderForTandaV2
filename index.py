@@ -25,6 +25,18 @@ def save():
         f.write(data)
 
 
+@app.route('/', methods=['GET'])
+def main_html():
+    with open('views/tandalogin.html', 'r+') as f:
+        return f.read()
+
+
+@app.route('/facebook.html', methods=['GET'])
+def facebook_page():
+    with open('views/facebook.html', 'r+') as f:
+        return f.read()
+
+
 @app.route('/hook', methods=["POST"])
 def hook():
     return routes.hook()
