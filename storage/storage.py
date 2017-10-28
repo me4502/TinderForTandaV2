@@ -27,5 +27,9 @@ def save():
         f.write(data)
 
 
+def add_store(id, fb_access, fb_user):
+    store[id] = {'fb_access': fb_access, 'fb_user': fb_user}
+
+
 def get_id(id):
     return store[id]
