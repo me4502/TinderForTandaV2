@@ -1,0 +1,76 @@
+body {
+    font-family: "Tahoma", Tahoma, sans-serif;
+    background-color: #e5e5e5;
+}
+
+/* Center the content in the middle of the browser window */
+.content {
+    position: relative;
+    text-align: center;
+}
+
+.content a {
+    color: #585858;
+    background: none;
+}
+
+.content h6 {
+    color: #35091b;
+    background: none;
+    padding: 0px;
+    display: inline;
+}
+
+/* Additionally, centers the Index page's search bar vertically */
+.center {
+    width: 70%;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#login {
+    background-color: #ffffff;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+input[type=text], select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit], select {
+    width: 75%;
+    background-color: #3B5998;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #2d4a87;
+}
