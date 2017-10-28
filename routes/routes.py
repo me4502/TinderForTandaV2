@@ -1,8 +1,11 @@
+# coding=utf-8
 from __future__ import print_function
 
 import json
 
 from flask import request, abort
+
+import tinder_api
 from storage import save, get_id, has_id
 from datetime import date
 from sqs import sqs_queue
@@ -26,6 +29,11 @@ def hook():
             user = get_id(request.json['payload']['body']['user_id'])
 
             sqs_queue.send_message(MessageBody='Hello World')
+
+            late_time = wasLate(user_id, request.json['payload']['body']['time'])
+
+            if late_time < 0:
+                send_messages(user, 0 - late_time)
         else:
             return json.dumps({'response': 'Unknown user'})
 
@@ -38,7 +46,12 @@ def photo(req):
 
 
 def send_messages(fb_user_data, late_time):
-    pass
+    tinder_api.authverif(fb_user_data['fb_access'], fb_user_data['fb_user'])
+    matches = tinder_api.get_updates()['matches']
+    for match in matches:
+        tinder_api.send_msg(match, """Hey babe, just letting you know I’m the
+        kind of person who turns up to things {}
+        minutes late. Hope you’re okay with that 😉""".format(late_time / 60))
 
 
 def wasLate(userid, clockTime):
@@ -48,6 +61,6 @@ def wasLate(userid, clockTime):
     r = requests.get("https://my.tanda.co/api/v2/schedules/",
                      params=params, headers=headers)
     if r.text != "[]":
-        return r.json()[0]['start'] < clockTime
+        return r.json()[0]['start'] - clockTime
     else:
-        return False
+        return 0
