@@ -30,7 +30,9 @@ def hook():
         if has_id(user_id):
             user = get_id(request.json['payload']['body']['user_id'])
 
-            sqs_queue.send_message(MessageBody='Hello World')
+            sqs_queue.send_message(MessageBody=json.dumps({
+                'song': 'https://s3-ap-southeast-2.amazonaws.com/noticeme.byronis.me/Seinfeld+Theme.mp3'
+            }))
 
             late_time = wasLate(user_id, request.json['payload']['body']['time'])
 
