@@ -30,9 +30,9 @@ def hook():
     return routes.hook()
 
 
-@app.route('/fb_auth', methpds=['GET'])
+@app.route('/fb_auth', methods=['POST'])
 def fb_auth():
-    return routes.hecking_facebook_auth()
+    return json.dumps(routes.hecking_facebook_auth())
 
 
 if __name__ == "__main__":
