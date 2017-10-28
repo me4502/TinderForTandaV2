@@ -1,3 +1,5 @@
+import json
+
 from flask import request
 import tinder_api
 from storage import store, save
@@ -5,6 +7,8 @@ from storage import store, save
 
 def hecking_facebook_auth():
     data = request.json
+    if data is None:
+        data = json.loads(request.data)
     if 'username' not in data \
             or 'password' not in data \
             or 'tanda_id' not in data:
