@@ -1,15 +1,13 @@
 import json
 import routes
-from flask import Flask
+from flask import Flask, redirect
 from storage import load
 
 app = Flask(__name__, static_url_path='')
 
-
-@app.route('/', methods=['GET'])
-def main_html():
-    with open('views/tandalogin.html', 'r+') as f:
-        return f.read()
+@app.route('/', methods=["GET"])
+def root():
+    return redirect('/tandalogin.html')
 
 
 @app.route('/hook', methods=["POST"])
