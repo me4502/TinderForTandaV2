@@ -30,7 +30,7 @@
           if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var access_token = xhr.response.access_token;
             var xhr2 = new XMLHttpRequest();
-            var url2 = "https://my.tanda.co/api/v2/users/me"
+            var url2 = "https://my.tanda.co/api/v2/users/me";
             xhr2.open("GET", url2, true);
             xhr2.setRequestHeader("Authorization", "bearer " + access_token);
             xhr2.responseType = "json";

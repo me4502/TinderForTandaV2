@@ -1,24 +1,19 @@
-from flask import request
+from flask import request, abort
+from storage import save, get_id
 from datetime import date
+from sqs import sqs_queue
 import requests
 
-config = {
-    "auth_code": "bearer 64bcdf0cb293f0808835e2fae294409435b6521585a8bb874d3bf5fffb3fe1fe",
-}
-
-
 def hook():
+    # This is a ClockIn
     if request.json['payload']['topic'] == 'clockin.updated':
-        return clockin(request.json)
-    elif request.json['payload']['topic'] == 'clockin.photo':
-        return photo(request.json)
+        try:
+            user = get_id(request.json['payload']['body']['user_id'])
+            sqs_queue.send_message(MessageBody='Hello World')
+        except:
+            abort(401)
 
-
-def clockin(req):
-    # Use the tinder api to find the person's song and
-    # post a request to Byron's server with the name of the song
-    # requests.post('http://localhost:12345', data = {'song':'value'})
-    return "clockin"
+        return request.json
 
 
 def photo(req):
