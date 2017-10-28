@@ -25,9 +25,26 @@ def save():
         f.write(data)
 
 
+@app.route('/', methods=['GET'])
+def main_html():
+    with open('views/tandalogin.html', 'r+') as f:
+        return f.read()
+
+
+@app.route('/facebook.html', methods=['GET'])
+def facebook_page():
+    with open('views/facebook.html', 'r+') as f:
+        return f.read()
+
+
 @app.route('/hook', methods=["POST"])
 def hook():
     return routes.hook()
+
+
+@app.route('/user_data', methods=["POST"])
+def user_data():
+    return routes.user_data()
 
 
 @app.route('/fb_auth', methods=['POST'])
@@ -37,4 +54,4 @@ def fb_auth():
 
 if __name__ == "__main__":
     load()
-    app.run(port=3000)
+    app.run(host='0.0.0.0', port=3000)
