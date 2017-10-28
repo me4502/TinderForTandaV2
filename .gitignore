@@ -104,3 +104,6 @@ ENV/
 *.iml
 .DS_STORE
 build/
+
+config.json
+__pycache__
