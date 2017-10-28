@@ -12,6 +12,7 @@ headers = {
 
 host = 'https://api.gotinder.com'
 
+
 def get_auth_token(fb_auth_token, fb_user_id):
     if "error" in fb_auth_token:
         return {"error": "could not retrieve fb_auth_token"}
@@ -113,6 +114,7 @@ def get_meta():
     except requests.exceptions.RequestException as e:
         print("Something went wrong. Could not get your metadata:", e)
 
+
 def update_location(lat, lon):
     '''
     Updates your location to the given float inputs
@@ -124,6 +126,7 @@ def update_location(lat, lon):
         return r.json()
     except requests.exceptions.RequestException as e:
         print("Something went wrong. Could not update your location:", e)
+
 
 def reset_real_location():
     try:
