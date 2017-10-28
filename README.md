@@ -7,7 +7,7 @@ Tinder? For TANDA? Localised entirely within the 2017 TANDA hackathon?
 * Receive clock in webhook
 * Receive user created webhook for sign up prompt 
 ## Spotify
-* Play Tinder Anthem when receive clock in webhook
+* Play Tinder Anthem when receive clock in webhook.
 ## Tinder
 * Setup Tinder access
 * When a late clock in occurs, send all matches a message about it
@@ -19,4 +19,4 @@ Tinder? For TANDA? Localised entirely within the 2017 TANDA hackathon?
 * If they clock in late, an alert will be sent to their Tinder matches 
 * If they schedule time off, another alert send to matches 
 * Linked In API: Share on time clock in streak with clock in photo  
-* Linked In API Certification on profile: clock in streak  
+* Linked In API Certification on profile: clock in streak
