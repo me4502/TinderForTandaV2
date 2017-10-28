@@ -34,10 +34,10 @@ def hook():
                 'song': 'https://s3-ap-southeast-2.amazonaws.com/noticeme.byronis.me/Seinfeld+Theme.mp3'
             }))
 
-            late_time = wasLate(user_id, request.json['payload']['body']['time'])
-
-            if late_time < 0:
-                send_messages(user, 0 - late_time)
+            # late_time = wasLate(user_id, request.json['payload']['body']['time'])
+            #
+            # if late_time < 0:
+            #     send_messages(user, 0 - late_time)
         else:
             return json.dumps({'response': 'Unknown user'})
 
