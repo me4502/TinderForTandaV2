@@ -2,7 +2,7 @@ import json
 
 from flask import request
 import tinder_api
-from storage import store, save
+from storage import add_store, save
 
 
 def hecking_facebook_auth():
@@ -23,7 +23,7 @@ def hecking_facebook_auth():
                             'combination?'}
     fb_user = tinder_api.get_fb_id(fb_access)
 
-    store[tanda_id] = {'fb_access': fb_access, 'fb_user': fb_user}
+    add_store(tanda_id, fb_access, fb_user)
     save()
 
     return {'response': 'success'}
