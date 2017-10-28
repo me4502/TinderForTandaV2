@@ -33,3 +33,7 @@ def add_store(id, fb_access, fb_user):
 
 def get_id(id):
     return store[id]
+
+
+def has_id(id):
+    return id in store
