@@ -1,6 +1,6 @@
 from flask import request
 import tinder_api
-from index import user_storage
+from index import user_storage, save
 
 
 def hecking_facebook_auth():
@@ -20,5 +20,6 @@ def hecking_facebook_auth():
     fb_user = tinder_api.get_fb_id(fb_access)
 
     user_storage[tanda_id] = {'fb_access': fb_access, 'fb_user': fb_user}
+    save()
 
     return {'response': 'success'}
