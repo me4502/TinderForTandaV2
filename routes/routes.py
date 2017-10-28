@@ -13,7 +13,7 @@ def hook():
         except:
             abort(401)
 
-        return clockin(request.json)
+        return request.json
 
 
 def photo(req):
