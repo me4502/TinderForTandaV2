@@ -1,8 +1,10 @@
-import { config as configEnv } from 'dotenv';
+import {config as configEnv} from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import Spotify from 'spotify-web-api-node';
+import Producer from 'sqs-producer';
+import uuid from 'uuid/v4';
 
 const store = {};
 const getToken = () => {
@@ -14,10 +16,23 @@ const setToken = (token) => {
 
 // Immediately load any environmental variables
 configEnv();
-if(!process.env.SPOTIFY_CLIENT_ID || !process.env.SPOTIFY_CLIENT_SECRET) throw new Error('env SPOTIFY_ACCESS_TOKEN is missing');
+if (
+  !process.env.SPOTIFY_CLIENT_ID ||
+  !process.env.SPOTIFY_CLIENT_SECRET ||
+  !process.env.AWS_SECRET_ACCESS_KEY ||
+  !process.env.AWS_ACCESS_KEY_ID ||
+  !process.env.AWS_REGION ||
+  !process.env.AWS_QUEUE_URL
+) throw new Error('Double check environmental variables');
+
 const spotifyInstance = new Spotify({
   clientId: process.env.SPOTIFY_CLIENT_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+});
+
+const producer = Producer.create({
+  queueUrl: process.env.AWS_QUEUE_URL,
+  region: process.env.AWS_REGION,
 });
 
 if (!process.env.PORT) {
@@ -45,6 +60,24 @@ app.post('/play', async (req, res) => {
   try {
     const spotifyResult = await spotifyInstance.searchTracks(req.body.query);
     console.log(`Searched Spotify for ${req.body.query}`);
+
+    if (spotifyResult.body.tracks.items[0].preview_url) {
+      const payload = {
+        song: spotifyResult.body.tracks.items[0].preview_url,
+      };
+
+      producer.send({
+        id: uuid(),
+        body: JSON.stringify(payload),
+      }, (err) => {
+        if (err) console.error(err);
+      });
+    } else {
+      producer.send(JSON.stringify({
+        song: 'https://p.scdn.co/mp3-preview/2e7e8462ffe37b05496c015505aabda332b9f884?cid=2bafe74b3e144b54a78db4f734c714ea',
+      }))
+    }
+
     res.status(200).json({
       name: spotifyResult.body.tracks.items[0].name,
       artists: spotifyResult.body.tracks.items[0].artists.map(data => data.name),
@@ -52,7 +85,7 @@ app.post('/play', async (req, res) => {
       spotifyUrl: spotifyResult.body.tracks.items[0].href,
     });
   } catch (e) {
-    return res.status(400).json({ spotifyError: e });
+    return res.status(400).json({spotifyError: e});
   }
 });
 
