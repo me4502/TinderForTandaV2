@@ -20,6 +20,7 @@ const appHandler = (message, done) => {
   }
   const body = JSON.parse(message.Body);
   if (!body.song) throw new Error('Song not attached to body');
+  console.log(`Received job: ${body.song}`);
 
   const speaker = new Speaker({
     channels: 2,
@@ -27,7 +28,11 @@ const appHandler = (message, done) => {
     sampleRate: 44100,
   });
   const decoder = new Decoder();
-  request(body.song).pipe(decoder).pipe(speaker);
+  request(body.song)
+    .pipe(decoder)
+    .pipe(speaker);
+
+
   done();
 };
 
