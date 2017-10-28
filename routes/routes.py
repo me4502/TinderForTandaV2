@@ -27,19 +27,19 @@ def hook():
 
         user_id = request.json['payload']['body']['user_id']
 
-        if has_id(user_id):
-            user = get_id(request.json['payload']['body']['user_id'])
+        #if has_id(user_id):
+        #    user = get_id(request.json['payload']['body']['user_id'])
 
-            sqs_queue.send_message(MessageBody=json.dumps({
-                'song': 'https://s3-ap-southeast-2.amazonaws.com/noticeme.byronis.me/Seinfeld+Theme.mp3'
-            }))
+        sqs_queue.send_message(MessageBody=json.dumps({
+            'song': 'https://s3-ap-southeast-2.amazonaws.com/noticeme.byronis.me/Seinfeld+Theme.mp3'
+        }))
 
             # late_time = wasLate(user_id, request.json['payload']['body']['time'])
             #
             # if late_time < 0:
             #     send_messages(user, 0 - late_time)
-        else:
-            return json.dumps({'response': 'Unknown user'})
+        #else:
+         #   return json.dumps({'response': 'Unknown user'})
 
         return json.dumps({'response': 'success'})
 
