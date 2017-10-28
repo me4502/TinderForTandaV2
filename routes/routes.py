@@ -9,11 +9,16 @@ from dotenv import load_dotenv, find_dotenv
 
 TANDA_KEY = os.environ.get("TANDA_KEY")
 
+
 def hook():
     # This is a ClockIn
     if request.json['payload']['topic'] == 'clockin.updated':
         try:
+            # Check if the user was late with: 
+            # (bool) wasLate(request.json['payload']['body']['user_id'], request.json['payload']['body']['time']))
+
             user = get_id(request.json['payload']['body']['user_id'])
+
             sqs_queue.send_message(MessageBody='Hello World')
         except:
             abort(401)
