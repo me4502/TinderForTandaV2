@@ -63,7 +63,7 @@ def send_messages(fb_user_data, late_time):
     tinder_api.authverif(fb_user_data['fb_access'], fb_user_data['fb_user'])
     matches = tinder_api.get_updates()['matches']
     for match in matches:
-        tinder_api.send_msg(match, """Hey babe, just letting you know I’m the
+        tinder_api.send_msg(match, u"""Hey babe, just letting you know I’m the
         kind of person who turns up to things {}
         minutes late. Hope you’re okay with that 😉""".format(late_time / 60))
         pause()
