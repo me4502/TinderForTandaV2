@@ -2,6 +2,8 @@
 from __future__ import print_function
 
 import json
+from random import random
+from time import sleep
 
 from flask import request, abort
 
@@ -45,6 +47,18 @@ def photo(req):
     return "photo"
 
 
+def pause():
+    """
+    In order to appear as a real Tinder user using the app...
+    When making many API calls, it is important to pause a...
+    realistic amount of time between actions to not make Tinder...
+    suspicious!
+    """
+    nap_length = 3 * random()
+    print('Napping for %f seconds...' % nap_length)
+    sleep(nap_length)
+
+
 def send_messages(fb_user_data, late_time):
     tinder_api.authverif(fb_user_data['fb_access'], fb_user_data['fb_user'])
     matches = tinder_api.get_updates()['matches']
@@ -52,6 +66,7 @@ def send_messages(fb_user_data, late_time):
         tinder_api.send_msg(match, """Hey babe, just letting you know I’m the
         kind of person who turns up to things {}
         minutes late. Hope you’re okay with that 😉""".format(late_time / 60))
+        pause()
 
 
 def wasLate(userid, clockTime):
