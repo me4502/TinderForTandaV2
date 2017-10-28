@@ -4,6 +4,11 @@ from datetime import date
 from sqs import sqs_queue
 import requests
 
+import os
+from dotenv import load_dotenv, find_dotenv
+
+TANDA_KEY = os.environ.get("TANDA_KEY")
+
 def hook():
     # This is a ClockIn
     if request.json['payload']['topic'] == 'clockin.updated':
@@ -22,9 +27,8 @@ def photo(req):
 
 
 def wasLate(userid, clockTime):
-    print("GOING!")
     today = date.today().isoformat()
-    headers = {"Authorization": config['auth_code']}
+    headers = {"Authorization": "bearer " + TANDA_KEY}
     params = {"user_ids": userid, "from": today, "to": today}
     r = requests.get("https://my.tanda.co/api/v2/schedules/",
                      params=params, headers=headers)
