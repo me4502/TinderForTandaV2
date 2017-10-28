@@ -5,7 +5,7 @@ Tinder? For TANDA? Localised entirely within the 2017 TANDA hackathon?
 ## Common
 * FaceBook OAuth
 * Receive clock in webhook
-* Receive user created webhook for sign up prompt 
+* Receive user created webhook for sign up prompt.
 ## Spotify
 * Play Tinder Anthem when receive clock in webhook.
 ## Tinder
