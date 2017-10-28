@@ -1,5 +1,9 @@
+from __future__ import print_function
+
+import json
+
 from flask import request, abort
-from storage import save, get_id
+from storage import save, get_id, has_id
 from datetime import date
 from sqs import sqs_queue
 import requests
@@ -13,22 +17,28 @@ TANDA_KEY = os.environ.get("TANDA_KEY")
 def hook():
     # This is a ClockIn
     if request.json['payload']['topic'] == 'clockin.updated':
-        try:
-            # Check if the user was late with: 
-            # (bool) wasLate(request.json['payload']['body']['user_id'], request.json['payload']['body']['time']))
+        # Check if the user was late with:
+        # (bool) wasLate(request.json['payload']['body']['user_id'], request.json['payload']['body']['time']))
 
+        user_id = request.json['payload']['body']['user_id']
+
+        if has_id(user_id):
             user = get_id(request.json['payload']['body']['user_id'])
 
             sqs_queue.send_message(MessageBody='Hello World')
-        except:
-            abort(401)
+        else:
+            return json.dumps({'response': 'Unknown user'})
 
-        return request.json
+        return json.dumps({'response': 'success'})
 
 
 def photo(req):
     # Do nothing at all
     return "photo"
+
+
+def send_messages(fb_user_data, late_time):
+    pass
 
 
 def wasLate(userid, clockTime):
