@@ -107,3 +107,4 @@ build/
 
 config.json
 __pycache__
+user_storage.dat
